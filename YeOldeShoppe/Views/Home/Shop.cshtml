@@ -1,0 +1,63 @@
+﻿
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@model ShopDBContext
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="text-center">
+        <h1>Shop!</h1>
+        <h1>Sooo tell me what you want, what you really really want</h1>
+        <h1> </h1>
+    </div>
+
+
+<table>
+    <tr>
+        <td> </td>
+        <td>Item&nbsp;</td>
+        <td>Description&nbsp;</td>
+        <td>Price&nbsp;</td>
+        <td>Stock&nbsp;</td>
+        
+        <td>Get it!&nbsp;</td>
+    </tr>
+    <tr>-----------------------------------------------------------------------------------</tr>
+    @foreach (var item in Model.Items)
+    {
+<tr>
+    <td>@item.Id&nbsp;</td>
+    <td>@item.Name&nbsp;</td>
+    <td>@item.Description&nbsp;</td>
+    <td>@item.Price&nbsp;</td>
+    <td>@item.Quantity&nbsp;</td>
+
+    
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+        <td><button onclick="location.href='@Url.Action("Purchase", "Home", new { itemPrice = item.Price, quantity = item.Quantity - 1, name = item.Name})'" type="button"  class="btn btn-outline-dark">Purchase</button></td>
+    }
+</tr>
+    }
+</table>
+
+<style>
+    body {
+        background-color: mediumpurple;
+        background-image: url(https://i.pinimg.com/236x/40/36/e4/4036e4b881df8d5580f5c1fea82cbcc4--emma-bunton-spice-girls.jpg);
+        background-repeat: no-repeat;
+        background-size: 275px;
+        background-position: bottom;
+        background-position: right;
+    }
+
+    #leg1 {
+        color: black;
+    }
+</style>
+
+
+
